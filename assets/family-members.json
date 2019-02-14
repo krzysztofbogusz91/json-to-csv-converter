@@ -53,6 +53,60 @@
           "role": { "data": "husband" }
         }
       ]
+    },
+    {
+      "idFirmy": { "data": 2 },
+      "companyName": { "data": "Repairs INC" },
+      "companyNumber": { "data": 5445646334 },
+      "companyRole": { "data": "fixing cars" },
+      "companyMembers": [
+        {
+          "idOsoby": { "data": 229 },
+          "name": { "data": "max" },
+          "job": { "data": "owner" },
+          "accountNumber": { "data": 5445646334 },
+          "role": { "data": "husband" },
+          "familyMembers": [
+            {
+              "idOsoby": { "data": 211 },
+              "name": { "data": "Mia" },
+              "job": { "data": "nurse" },
+              "accountNumber": { "data": 5445646334 },
+              "role": { "data": "wife" },
+              "children": [
+                {
+                  "idOsoby": { "data": 241 },
+                  "name": { "data": "MiaJr" },
+                  "job": { "data": "child" },
+                  "accountNumber": { "data": 5445646334 },
+                  "role": { "data": "child" }
+                },
+                {
+                  "idOsoby": { "data": 251 },
+                  "name": { "data": "Marcus" },
+                  "job": { "data": "child" },
+                  "accountNumber": { "data": 4445646334 },
+                  "role": { "data": "child" }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idOsoby": { "data": 261 },
+          "name": { "data": "Vlad" },
+          "job": { "data": "mechanic" },
+          "accountNumber": { "data": 5445646334 },
+          "role": { "data": "single" }
+        },
+        {
+          "idOsoby": { "data": 271 },
+          "name": { "data": "Bartek" },
+          "job": { "data": "mechanic" },
+          "accountNumber": { "data": 5445646334 },
+          "role": { "data": "husband" }
+        }
+      ]
     }
   ]
 }

@@ -5,7 +5,6 @@ const creteOneLineCSV = materialToTransform => {
   const lastArr = [];
   return Object.entries(materialToTransform).map(arrEntry => {
     const keys = Object.keys(arrEntry[1]);
-
     const values = Object.values(arrEntry[1])
       .filter(arrayObj => {
         if (Array.isArray(arrayObj)) {
@@ -15,8 +14,8 @@ const creteOneLineCSV = materialToTransform => {
         return true;
       })
       .map(obj => obj.data);
-
-    const company = keys
+      
+    const company = [...keys]
       .map((key, i) => {
         if (!values[i]) {
           return '';
@@ -24,11 +23,8 @@ const creteOneLineCSV = materialToTransform => {
         return `${key}|${values[i]}`;
       })
       .join('|');
-      return _.uniq(
-        _.flattenDepth([(lastArr), company], 100)
-      ) 
+    return _.uniq(_.flattenDepth([lastArr, company], 100));
   });
 };
 
-
-module.exports = {creteOneLineCSV}
+module.exports = { creteOneLineCSV };

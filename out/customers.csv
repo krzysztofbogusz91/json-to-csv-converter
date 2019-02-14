@@ -5,3 +5,16 @@ idOsoby|22|name|max|job|owner|accountNumber|5445646334|role|husband|
 idOsoby|26|name|Vlad|job|mechanic|accountNumber|5445646334|role|single
 idOsoby|27|name|Bartek|job|mechanic|accountNumber|5445646334|role|husband
 idFirmy|1|companyName|Repairs INC|companyNumber|5445646334|companyRole|fixing cars|
+idOsoby|24|name|MiaJr|job|child|accountNumber|5445646334|role|child
+idOsoby|25|name|Marcus|job|child|accountNumber|4445646334|role|child
+idOsoby|23|name|Mia|job|nurse|accountNumber|5445646334|role|wife|
+idOsoby|22|name|max|job|owner|accountNumber|5445646334|role|husband|
+idOsoby|26|name|Vlad|job|mechanic|accountNumber|5445646334|role|single
+idOsoby|27|name|Bartek|job|mechanic|accountNumber|5445646334|role|husband
+idOsoby|241|name|MiaJr|job|child|accountNumber|5445646334|role|child
+idOsoby|251|name|Marcus|job|child|accountNumber|4445646334|role|child
+idOsoby|211|name|Mia|job|nurse|accountNumber|5445646334|role|wife|
+idOsoby|229|name|max|job|owner|accountNumber|5445646334|role|husband|
+idOsoby|261|name|Vlad|job|mechanic|accountNumber|5445646334|role|single
+idOsoby|271|name|Bartek|job|mechanic|accountNumber|5445646334|role|husband
+idFirmy|2|companyName|Repairs INC|companyNumber|5445646334|companyRole|fixing cars|
