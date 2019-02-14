@@ -24,7 +24,9 @@ const creteOneLineCSV = materialToTransform => {
         return `${key}|${values[i]}`;
       })
       .join('|');
-      return _.flattenDepth([...lastArr, company], 100)
+      return _.uniq(
+        _.flattenDepth([(lastArr), company], 100)
+      ) 
   });
 };
 
