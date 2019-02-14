@@ -2,13 +2,17 @@
   "name": "json-to-csv",
   "version": "1.0.0",
   "description": "json to csv converter to csv in single line form json object arr",
-  "main": "script.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "nodemon index.js"
   },
   "author": "Krzysztof Bogusz",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
   }
 }
