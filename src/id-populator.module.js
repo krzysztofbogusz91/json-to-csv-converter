@@ -1,19 +1,17 @@
 const _ = require('lodash');
+const setId = (elem, id) =>{
+  if (elem.hasOwnProperty('idFirmy')) {
+    return elem.idFirmy;
+  }else {
+    return id
+  }
+}
 
-const populateCompanyIds = (companyOrMember, settings ={
-  currentTable: [],
-  idPres: 0
-} 
- ) => {
-  const allElemsTable = settings.currentTable;
-  let id = settings.idPres;
-  const filterd = companyOrMember.map(elem => {
-    if (elem.hasOwnProperty('idFirmy')) {
-      id = elem.idFirmy;
-    }
+const deleteArrayElement = (companyOrMember, settings) =>{
+  return companyOrMember.map(elem => {
     const arrayField = Object.keys(elem).filter(arrayObj => {
       if (Array.isArray(elem[arrayObj])) {
-        populateCompanyIds(elem[arrayObj],{ currentTable: allElemsTable, idPres: id});
+        populateCompanyIds(elem[arrayObj],{ currentTable: settings.currentTable, idPres: setId(elem, settings.idPres)});
         return true;
       }
       return false;
@@ -21,15 +19,24 @@ const populateCompanyIds = (companyOrMember, settings ={
 
     return _.omit(elem, arrayField[0]);
   });
-  filterd.forEach(elem => {
+}
+const populateCompanyIds = (entityToPopulate, settings ={
+  currentTable: [],
+  idPres: 0
+} 
+ ) => {
+
+  const filtered = deleteArrayElement(entityToPopulate, settings)
+
+  filtered.forEach(elem => {
     if (!elem.hasOwnProperty('idFirmy')) {
-      allElemsTable.push({ idFirmy: id, ...elem });
+      settings.currentTable.push({ idFirmy: setId(elem, settings.idPres), ...elem });
     } else {
-      allElemsTable.push(elem);
+      settings.currentTable.push(elem);
     }
   });
 
-  return allElemsTable;
+  return settings.currentTable;
 };
 
 
