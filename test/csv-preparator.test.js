@@ -20,13 +20,17 @@ describe('CsvPreparatorModule', function() {
   });
 
   it('should return properly formated string ', function() {
-    const expectation = 'idFirmy|1|idOsoby|24|name|MiaJr|job|child|accountNumber|5445646334|role|child';
+    const expectation =
+      'idFirmy|1|idOsoby|24|name|MiaJr|job|child|accountNumber|5445646334|role|child';
     const assertion = creteCSVReadyArray.creteOneLineCSV(mockData)[0][0];
-    expect(expectation).to.deep.equal(assertion)
+    expect(expectation).to.equal(assertion);
   });
   it('should return properly formated string ', function() {
-    const expectation = 'idFirmy,1,idOsoby,24,name,MiaJr,job,child,accountNumber,5445646334,role,child';
-    const assertion = creteCSVReadyArray.creteOneLineCSV(mockData, {spread: ','})[0][0];
-    expect(expectation).to.deep.equal(assertion)
+    const expectation =
+      'idFirmy,1,idOsoby,24,name,MiaJr,job,child,accountNumber,5445646334,role,child';
+    const assertion = creteCSVReadyArray.creteOneLineCSV(mockData, {
+      spread: ','
+    })[0][0];
+    expect(expectation).to.equal(assertion);
   });
 });

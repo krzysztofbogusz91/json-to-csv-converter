@@ -1,7 +1,9 @@
 const _ = require('lodash');
+const env = require('../enviroments/env.settings');
+
 const setId = (elem, id) => {
-  if (elem.hasOwnProperty('idFirmy')) {
-    return elem.idFirmy;
+  if (elem.hasOwnProperty(env.mainIdName)) {
+    return elem[env.mainIdName];
   } else {
     return id;
   }
@@ -31,11 +33,11 @@ const populateCompanyIds = (
   }
 ) => {
   deleteArrayElement(entityToPopulate, settings).forEach(elem =>
-    !elem.hasOwnProperty('idFirmy')
-      ? settings.currentTable.push({
-          idFirmy: setId(elem, settings.idPres),
+    !elem.hasOwnProperty(env.mainIdName)
+      ? ((elem[env.mainIdName] = setId(elem, settings.idPres)),
+        settings.currentTable.push({
           ...elem
-        })
+        }))
       : settings.currentTable.push(elem)
   );
   return settings.currentTable;
