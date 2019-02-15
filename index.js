@@ -1,40 +1,13 @@
 const fs = require('fs');
 const _ = require('lodash');
-const creteCsv = require('./src/script');
+const creteCsv = require('./src/csv-preparator.module');
 const dataToWrite = require('./assets/family-members').myData;
+const creteFlatArr = require('./src/id-populator.module');
+
 let populatedWithIds = [];
-const populateCompanyIds = (companyOrMember, settings ={
-  currentTable: [],
-  idPres: 0
-} 
- ) => {
-  const allElemsTable = settings.currentTable;
-  let id = settings.idPres;
-  const filterd = companyOrMember.map(elem => {
-    if (elem.hasOwnProperty('idFirmy')) {
-      id = elem.idFirmy;
-    }
-    const arrayField = Object.keys(elem).filter(arrayObj => {
-      if (Array.isArray(elem[arrayObj])) {
-        populateCompanyIds(elem[arrayObj],{ currentTable: allElemsTable, idPres: id});
-        return true;
-      }
-      return false;
-    });
+populatedWithIds = creteFlatArr.populateCompanyIds(dataToWrite);
+console.log(populatedWithIds);
 
-    return _.omit(elem, arrayField[0]);
-  });
-  filterd.forEach(elem => {
-    if (!elem.hasOwnProperty('idFirmy')) {
-      allElemsTable.push({ idFirmy: id, ...elem });
-    } else {
-      allElemsTable.push(elem);
-    }
-  });
-
-  return (populatedWithIds = allElemsTable);
-};
-populateCompanyIds(dataToWrite);
 fs.writeFile(
   'out/customers.csv',
   creteCsv.creteOneLineCSV(populatedWithIds, { spread: '|' }).join(
