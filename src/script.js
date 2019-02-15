@@ -1,7 +1,9 @@
 const fs = require('fs');
 const _ = require('lodash');
 
-const creteOneLineCSV = materialToTransform => {
+const creteOneLineCSV = (materialToTransform, settings={
+  spread: '|'
+}) => {
   const lastArr = [];
   return Object.entries(materialToTransform).map(arrEntry => {
     const keys = Object.keys(arrEntry[1]);
@@ -20,9 +22,9 @@ const creteOneLineCSV = materialToTransform => {
         if (!values[i]) {
           return '';
         }
-        return `${key}|${values[i]}`;
+        return `${key}${settings.spread}${values[i]}`;
       })
-      .join('|');
+      .join(`${settings.spread}`);
     return _.uniq(_.flattenDepth([lastArr, company], 100));
   });
 };

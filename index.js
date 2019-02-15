@@ -2,30 +2,41 @@ const fs = require('fs');
 const _ = require('lodash');
 const creteCsv = require('./src/script');
 const dataToWrite = require('./assets/family-members').myData;
-
-const populateCompanyIds = (companyOrMember, currentTable = []) => {
-  const allElemsTable = []
-  companyOrMember.forEach(elem => {
-    Object.values(elem).forEach(arrayObj => {
-      if (Array.isArray(arrayObj)) {
-        arrayObj.forEach(el=> {
-          allElemsTable.push(el)
-        })
-        populateCompanyIds(arrayObj);
-        return false
+let populatedWithIds = [];
+const populateCompanyIds = (companyOrMember, currentTable = [], idPres = 0) => {
+  const allElemsTable = currentTable;
+  let id = idPres;
+  const filterd = companyOrMember.map(elem => {
+    if (elem.hasOwnProperty('idFirmy')) {
+      id = elem.idFirmy;
+    }
+    const arrayField = Object.keys(elem).filter(arrayObj => {
+      if (Array.isArray(elem[arrayObj])) {
+        populateCompanyIds(elem[arrayObj], allElemsTable, id);
+        return true;
       }
-      allElemsTable.push(elem)
-      return true
+      return false;
     });
-  });
-  return _.uniq([...allElemsTable, ...currentTable])
 
+    return _.omit(elem, arrayField[0]);
+  });
+  filterd.forEach(elem => {
+    if (!elem.hasOwnProperty('idFirmy')) {
+      allElemsTable.push({ idFirmy: id, ...elem });
+    } else {
+      allElemsTable.push(elem);
+    }
+  });
+
+  return (populatedWithIds = allElemsTable);
 };
-const populatedWithIds = populateCompanyIds(dataToWrite);
-console.log('populated', populateCompanyIds(dataToWrite));
+populateCompanyIds(dataToWrite);
 fs.writeFile(
   'out/customers.csv',
-  _.flatten(creteCsv.creteOneLineCSV(dataToWrite)).join('\n'),
+  _.flatten(creteCsv.creteOneLineCSV(populatedWithIds, { spread: '|' })).join(
+    '\n'
+  ),
+  'UTF-8',
   err => {
     if (err) return console.log('error occurred', err);
     console.log('data was successfully saved');
