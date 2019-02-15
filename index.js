@@ -4,9 +4,7 @@ const creteCsv = require('./src/csv-preparator.module');
 const dataToWrite = require('./assets/family-members').myData;
 const creteFlatArr = require('./src/id-populator.module');
 
-let populatedWithIds = [];
-populatedWithIds = creteFlatArr.populateCompanyIds(dataToWrite);
-console.log(populatedWithIds);
+const populatedWithIds = creteFlatArr.populateCompanyIds(dataToWrite);
 
 fs.writeFile(
   'out/customers.csv',
