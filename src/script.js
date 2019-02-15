@@ -25,7 +25,7 @@ const creteOneLineCSV = (materialToTransform, settings={
         return `${key}${settings.spread}${values[i]}`;
       })
       .join(`${settings.spread}`);
-    return _.uniq(_.flattenDepth([lastArr, company], 100));
+      return [...lastArr, company]
   });
 };
 

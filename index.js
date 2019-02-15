@@ -3,16 +3,20 @@ const _ = require('lodash');
 const creteCsv = require('./src/script');
 const dataToWrite = require('./assets/family-members').myData;
 let populatedWithIds = [];
-const populateCompanyIds = (companyOrMember, currentTable = [], idPres = 0) => {
-  const allElemsTable = currentTable;
-  let id = idPres;
+const populateCompanyIds = (companyOrMember, settings ={
+  currentTable: [],
+  idPres: 0
+} 
+ ) => {
+  const allElemsTable = settings.currentTable;
+  let id = settings.idPres;
   const filterd = companyOrMember.map(elem => {
     if (elem.hasOwnProperty('idFirmy')) {
       id = elem.idFirmy;
     }
     const arrayField = Object.keys(elem).filter(arrayObj => {
       if (Array.isArray(elem[arrayObj])) {
-        populateCompanyIds(elem[arrayObj], allElemsTable, id);
+        populateCompanyIds(elem[arrayObj],{ currentTable: allElemsTable, idPres: id});
         return true;
       }
       return false;
@@ -33,7 +37,7 @@ const populateCompanyIds = (companyOrMember, currentTable = [], idPres = 0) => {
 populateCompanyIds(dataToWrite);
 fs.writeFile(
   'out/customers.csv',
-  _.flatten(creteCsv.creteOneLineCSV(populatedWithIds, { spread: '|' })).join(
+  creteCsv.creteOneLineCSV(populatedWithIds, { spread: '|' }).join(
     '\n'
   ),
   'UTF-8',
